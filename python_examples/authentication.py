@@ -62,16 +62,14 @@ def is_opposite_trend(response):
         price_changes = open(os.path.join(config.current_path,'price_trend.txt')).readlines()
 
         current_price = response['open']['hour']
-        price_changes.append(str(hourly_price_change))
+        price_changes.append(str(hourly_price_change)+"\n")
         with open(os.path.join(config.current_path,'price_trend.txt'), 'w+') as f:
             f.writelines(price_changes)
 
-        is_opposite = not (float(price_changes[-1]) < 0 and float(price_changes[-2]) < 0) or (float(price_changes[-1]) > 0 and float(price_changes[-2]) > 0)
+        is_opposite = not((float(price_changes[-1]) < 0 and float(price_changes[-2]) < 0) or (float(price_changes[-1]) > 0 and float(price_changes[-2]) > 0))
         return {"current_price":current_price, "price_change": hourly_price_change, "is_opposite": is_opposite}
     except Exception as ex:
         print_err(ex)
-
-
 
 timestamp = int(time.time())
 payload = '{}.{}'.format(timestamp, config.public_key)
@@ -80,17 +78,17 @@ signature = '{}.{}'.format(payload, hex_hash)
 
 headers = {'X-Signature': signature, 'X-ba-key': config.header_key}
 result = requests.get(url=config.url, headers=headers)
+
 response = result.json()
-print(response)
+# print(response)
 
-current_price, price_change, opposite = \
 result = is_opposite_trend(response)
-
+print(result)
 if result:
-    if opposite:
+    if result['is_opposite']:
         message = "The price is going the opposite direction. Decide what to do now!"+ \
         "\nCurrent Price: {}".format(result['current_price']) + \
         "\nPrice change: {}".format(result['price_change'])
-        send_email_with_attachment(message)
+        #send_email_with_attachment(message)
         print("Email sent")
 

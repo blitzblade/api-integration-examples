@@ -1,0 +1,9 @@
+url: https://apiv2.bitcoinaverage.com/indices/global/ticker/BTCUSD
+header_key: xxx,
+public_key: xxx,
+secret_key: xxx
+gmail_username: xx.xx@gmail.com
+gmail_password: xxxx
+email_recipients:
+  - xxxxx@gmail.com
+  - xxxxx@gmail.com

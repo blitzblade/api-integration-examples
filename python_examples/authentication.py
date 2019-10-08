@@ -89,6 +89,6 @@ if result:
         message = "The price is going the opposite direction. Decide what to do now!"+ \
         "\nCurrent Price: {}".format(result['current_price']) + \
         "\nPrice change: {}".format(result['price_change'])
-        #send_email_with_attachment(message)
+        send_email_with_attachment(message)
         print("Email sent")
 

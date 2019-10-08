@@ -1,1 +1,1 @@
-*/30 * * * * root python3 /app/authentication.py >> /var/log/task.log 2>&1
+*/30 * * * * root /usr/local/bin/python /app/authentication.py >> /var/log/task.log 2>&1

@@ -1,4 +1,4 @@
-FROM python:3.5.2
+FROM python:3.7.4
 
 ENV TZ=Africa/Accra
 

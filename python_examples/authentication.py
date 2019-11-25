@@ -71,24 +71,42 @@ def is_opposite_trend(response):
     except Exception as ex:
         print_err(ex)
 
-timestamp = int(time.time())
-payload = '{}.{}'.format(timestamp, config.public_key)
-hex_hash = hmac.new(config.secret_key.encode(), msg=payload.encode(), digestmod=hashlib.sha256).hexdigest()
-signature = '{}.{}'.format(payload, hex_hash)
+# def get_crypto_stats():
+#     timestamp = int(time.time())
+#     payload = '{}.{}'.format(timestamp, config.public_key)
+#     hex_hash = hmac.new(config.secret_key.encode(), msg=payload.encode(), digestmod=hashlib.sha256).hexdigest()
+#     signature = '{}.{}'.format(payload, hex_hash)
 
-headers = {'X-Signature': signature, 'X-ba-key': config.header_key}
-result = requests.get(url=config.url, headers=headers)
+#     headers = {'X-Signature': signature, 'X-ba-key': config.header_key}
+#     result = requests.get(url=config.url, headers=headers)
+#     print(result.status_code)
+#     print(result.content)
+#     response = result.json()
+#     return response
 
-response = result.json()
-# print(response)
+def get_crypto_stats(crypto="BTC"):
+    timestamp = int(time.time())
+    payload = '{}.{}'.format(timestamp, config.public_key)
+    hex_hash = hmac.new(config.secret_key.encode(), msg=payload.encode(), digestmod=hashlib.sha256).hexdigest()
+    signature = '{}.{}'.format(payload, hex_hash)
 
-result = is_opposite_trend(response)
-print(result)
-if result:
-    if result['is_opposite']:
-        message = "The price is going the opposite direction. Decide what to do now!"+ \
-        "\nCurrent Price: {}".format(result['current_price']) + \
-        "\nPrice change: {}".format(result['price_change'])
-        send_email_with_attachment(message)
-        print("Email sent")
+    headers = {'X-Signature': signature, 'X-ba-key': config.header_key}
+    result = requests.get(url=config.url.format(crypto=crypto), headers=headers)
+    print(result.content)
+    response = result.json()
+    print(response)
+    return response
+
+
+if __name__=="__main__":
+    response = get_crypto_stats()
+    result = is_opposite_trend(response)
+    print(result)
+    if result:
+        if result['is_opposite']:
+            message = "The price is going the opposite direction. Decide what to do now!"+ \
+            "\nCurrent Price: {}".format(result['current_price']) + \
+            "\nPrice change: {}".format(result['price_change'])
+            # send_email_with_attachment(message)
+            print("Email sent")
 

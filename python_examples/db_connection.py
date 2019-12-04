@@ -1,8 +1,11 @@
 import psycopg2
-dbname="bitcoin_db"
-user="postgres"
-host="localhost"
-password="postgres"
+import os
+
+
+dbname=os.getenv('DB_NAME',"bitcoin_db")
+user=os.getenv('DB_USER',"postgres")
+host=os.getenv('DB_HOST',"localhost")
+password=os.getenv('DB_PASSWORD',"postgres")
 
 def get_db_cursor():
     conn = psycopg2.connect(

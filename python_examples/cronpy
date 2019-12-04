@@ -1,1 +1,1 @@
-*/30 * * * * root /usr/local/bin/python /app/authentication.py >> /var/log/task.log 2>&1
+*/30 * * * * root /usr/local/bin/python /app/algo.py >> /var/log/task.log 2>&1

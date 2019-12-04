@@ -14,9 +14,9 @@ from config import Config
 config = Config()
 
 
-def send_email_with_attachment(message, includes_attachment=False,filepath="", subject="No subject"):
+def send_email_with_attachment(message,to, includes_attachment=False,filepath="", subject="No subject"):
     sent_from = config.gmail_username
-    to = config.email_recipients
+    # to = config.email_recipients
 
     msg = MIMEMultipart()
     msg['Subject'] = subject
@@ -92,21 +92,19 @@ def get_crypto_stats(crypto="BTC"):
 
     headers = {'X-Signature': signature, 'X-ba-key': config.header_key}
     result = requests.get(url=config.url.format(crypto=crypto), headers=headers)
-    print(result.content)
     response = result.json()
-    print(response)
     return response
 
 
 if __name__=="__main__":
-    response = get_crypto_stats()
-    result = is_opposite_trend(response)
-    print(result)
-    if result:
-        if result['is_opposite']:
-            message = "The price is going the opposite direction. Decide what to do now!"+ \
-            "\nCurrent Price: {}".format(result['current_price']) + \
-            "\nPrice change: {}".format(result['price_change'])
-            # send_email_with_attachment(message)
-            print("Email sent")
-
+    # response = get_crypto_stats()
+    # result = is_opposite_trend(response)
+    # print(result)
+    # if result:
+    #     if result['is_opposite']:
+    #         message = "The price is going the opposite direction. Decide what to do now!"+ \
+    #         "\nCurrent Price: {}".format(result['current_price']) + \
+    #         "\nPrice change: {}".format(result['price_change'])
+    #         # send_email_with_attachment(message)
+    #         print("Email sent")
+    pass

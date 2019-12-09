@@ -3,7 +3,7 @@ FROM python:3.7.4
 ENV TZ=Africa/Accra
 
 ENV DB_HOST "192.168.2.145"
-ENV DB_NAME "bitcoin_db2"
+ENV DB_NAME "bitcoin_db"
 ENV DB_USER "postgres"
 ENV DB_PASSWORD "postgres"
 

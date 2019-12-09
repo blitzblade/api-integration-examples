@@ -151,3 +151,5 @@ all_coinbase_data = restful_client.per_exchange_data('gdax')
 all_exchange_data_gbp_brl = restful_client.all_exchange_data(crypto='BTC', fiat='GBP,BRL')
 ```
 
+
+docker run -d --restart=unless-stopped --name=bitcoin-api -e DB_NAME=bitcoin_db -e DB_HOST=165.22.2.247 -e DB_USER=postgres -e DB_PASSWORD=postgres kwesidadson/bitcoin-api:latest

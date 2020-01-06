@@ -14,6 +14,10 @@ class Config():
         self.gmail_username = config['gmail_username']
         self.gmail_password = config['gmail_password']
         self.email_recipients = config['email_recipients']
+        self.DB_NAME = config['DB_NAME']
+        self.DB_USER = config['DB_USER']
+        self.DB_HOST = config['DB_HOST']
+        self.DB_PASSWORD = config['DB_PASSWORD']
 
     def load_configs(self, yaml_file):
         return yaml.load(open(yaml_file),Loader=Loader)
